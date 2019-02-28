@@ -1,4 +1,4 @@
-file = 'a_example.txt'
+file = 'c.txt'
 f = open(file, 'r')
 lines = f.readlines()
 
@@ -17,21 +17,74 @@ for x in h:
 v_set_un = [[0]*len(v_tags) for _ in v]
 
 for r in range(len(v_set_un)):
-	for c in range(len(v_set_un)[0]):
-		v_set_un[r][c] = v_tags[r] + v_tags[c]
+	for c in range(len(v_set_un)):
+		if r == c:
+			v_set_un[r][c] = 0
+		else:
+			v_set_un[r][c] = len(v_tags[r].union(v_tags[c]))
 
-print(v_tags)
-print(h_tags)
+def maxCookies(v_set_un):
+	seen = [0] * len(v_set_un)
+	curr_max = 0
+	index = []
+	for r in range(len(v_set_un)):
+		temp_max = 0
+		curr_index = 0
+		for c in range(len(v_set_un)):
+			if not seen[c]:
+				if v_set_un[r][c] > temp_max:
+					temp_max = v_set_un[r][c]
+					curr_index = c
+		seen[curr_index] = 1
+		curr_max += temp_max
+		l = [r, curr_index]
+		l.sort()
+		index.append(tuple(l))
+	return set(index)
+
+l = maxCookies(v_set_un)
+print(l)
+
+
+'''def maxCookies(v_set_un, seen, curr_max, marked):
+	if not 0 in seen:
+		return (curr_max, marked)
+
+	listing = []
+
+	for r in range(len(seen)):
+		if seen[r]:
+			continue
+		for c in range(len(seen)):
+			if seen[c]:
+				continue
+			else:
+				seen[c] = 1
+				seen[r] = 1
+				temp = marked
+				temp.append((r,c))
+				listing.append(maxCookies(v_set_un, seen, curr_max + v_set_un[r][c], temp))
+				seen[c] = 0
+				seen[r] = 0
+
+	return listing
+
+seen = [0]*len(v_set_un)
+marked = []
+curr_max = 0
+print('here')
+l =maxCookies(v_set_un, seen, curr_max, marked)
+for x in l:
+	print(x)'''
+
+
+
+#print(v_tags)
+#print(h_tags)
 #print(lines)
-print(len(v))
-print(len(h))
-print(v)
-print(h)
+#print(v)
+#print(h)
 
-def cost(i1, i2, slides):
-
-	# indices as input
-	intersect = 
 
 #given list of vertical slides, 
 def createSlides(v):
