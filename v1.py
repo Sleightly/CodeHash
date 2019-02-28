@@ -29,12 +29,15 @@ for x in h:
 	h_tags.append(set(x[2:]))
 
 
+v_set_un = [[0]*len(v_tags) for _ in v_tags]
+
 for r in range(len(v_set_un)):
 	for c in range(len(v_set_un)):
 		if r == c:
 			v_set_un[r][c] = 0
 		else:
 			v_set_un[r][c] = len(v_tags[r].union(v_tags[c]))
+
 
 def maxCookies(v_set_un):
 	seen = [0] * len(v_set_un)
